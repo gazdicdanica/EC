@@ -1,3 +1,4 @@
+from re import sub
 from flask import Flask, jsonify, request
 import pymongo, json
 from pymongo import MongoClient
@@ -77,6 +78,22 @@ def create_app():
         else:
             return jsonify({"error": "Request body must be JSON"}), 400
         
+
+    @app.route('/question', methods=['POST'])
+    def get_question():
+        if request.is_json:
+            try:
+                data = request.json
+                subject = data.get("subject")
+                difficulty = data.get("difficulty")
+                module = data.get("module")
+                llamaaa_response = lama_requests.get_question(subject, difficulty, module, [])
+                return jsonify({"question": llamaaa_response})
+            except Exception as e:
+                return jsonify({"error": str(e)}), 400
+        else:
+            return jsonify({"error": "Request body must be JSON"}), 400
+
 
     @app.route('/ask_me_about_topic', methods=['POST'])
     def ask_me_about_topic():
