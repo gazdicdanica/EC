@@ -1,1 +1,9 @@
-
+<div class="content">
+    <div class="wrapper">
+        <div class="item" *ngFor="let edu of edu_list">
+            <div class="color-div" [style.background-color]="edu.color"></div>
+            <div class="name-div" [style.color]="edu.color">{{edu.name}}</div>
+        </div>
+    </div>
+    
+</div>
