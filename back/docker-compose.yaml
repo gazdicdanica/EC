@@ -11,9 +11,11 @@ services:
       - mongodb
   mongodb:
     image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=mongodb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
     ports:
-      - '27017:27017'
-    volumes:
-      - dbdata6:/data/db
+      - 27017:27017
 volumes:
   dbdata6:

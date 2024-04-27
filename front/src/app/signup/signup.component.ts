@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,48 +9,54 @@ import { Router } from '@angular/router';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-  isConfirmed: boolean = false;
+  // isConfirmed: boolean = false;
   responseError: boolean = false;
-  user = {
-    email: "",
-    name: "",
-    surname: "",
-    username: "",
-    birthday: null,
-    password: ""
-  
-  };
 
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required]),
-    birthday: new FormControl(null, [Validators.required]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required])
-  });
+  }, this.matchValidator('password', 'confirmPassword'));
 
-  maxDate: Date = new Date();
 
-  constructor(private router: Router) {
-    this.maxDate = new Date();
-  }
-  public ngOnInit() {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
-  public signUp(): void {
-    let form = this.signUpForm.value;
-    this.user.email = form.email!;
-    this.user.name = form.name!;
-    this.user.surname = form.surname!;
-    this.user.birthday = form.birthday!;
-    this.user.password = form.password!;
-    this.user.username = form.username!;
+  signUp(): void {
 
-    console.log(this.user);
+    if (this.signUpForm.valid) {
+      let form = this.signUpForm.value;
+      this.authService.register(form.email!, form.password!).subscribe({
+        next: () => {
+          this.router.navigate(['']);
+          alert('User registered successfully');
+          
+        },
+        error: (error) => {
+          this.responseError = true;
+        }
+      
+      });
+    }
+  }
 
+  matchValidator(controlName: string, matchingControlName: string): ValidatorFn {
+    return (abstractControl: AbstractControl) => {
+      const control = abstractControl.get(controlName);
+      const matchingControl = abstractControl.get(matchingControlName);
 
+      if (matchingControl!.errors && !matchingControl!.errors?.['confirmedValidator']) {
+        return null;
+      }
+
+      if (control!.value !== matchingControl!.value) {
+        const error = { confirmedValidator: 'Passwords do not match.' };
+        matchingControl!.setErrors(error);
+        return error;
+      } else {
+        matchingControl!.setErrors(null);
+        return null;
+      }
+    }
   }
 }
-
