@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,10 +11,6 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   // isConfirmed: boolean = false;
   responseError: boolean = false;
-  user = {
-    email: "",
-    password: ""
-  };
 
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -21,26 +18,26 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required])
   }, this.matchValidator('password', 'confirmPassword'));
 
-  maxDate: Date = new Date();
 
-  constructor(private router: Router) {
-    this.maxDate = new Date();
-  }
-  public ngOnInit() {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
-  public signUp(): void {
+  signUp(): void {
 
     if (this.signUpForm.valid) {
       let form = this.signUpForm.value;
-      this.user.email = form.email!;
-      this.user.password = form.password!;
-      console.log(this.user);
-
+      this.authService.register(form.email!, form.password!).subscribe({
+        next: () => {
+          this.router.navigate(['']);
+          alert('User registered successfully');
+          
+        },
+        error: (error) => {
+          this.responseError = true;
+        }
+      
+      });
     }
-
-
-
   }
 
   matchValidator(controlName: string, matchingControlName: string): ValidatorFn {

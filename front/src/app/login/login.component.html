@@ -3,6 +3,7 @@
         <h1>Welcome to NNNLearn!</h1>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form">
+                <mat-error *ngIf="credentialsError">Invalid email or password</mat-error>
                 <mat-form-field class="form-input" appearance="outline">
                     <mat-label>E-mail</mat-label>
                     <input matInput type="email" name="email" formControlName="email"/>
