@@ -1,7 +1,16 @@
-<mat-toolbar color="primary">
-    <span class="material-symbols-outlined">
-        dictionary
-        </span>
-    <div style="width: 10px;"></div>
-    <span>NNNLearn</span>
+<mat-toolbar color="primary" class="toolbar">
+    <span class="logo">
+        <span class="material-symbols-outlined">
+            dictionary
+            </span>
+        <div style="width: 10px;"></div>
+        <span>EasyLearn</span>
+    </span>
+   
+
+    <span class="logout">
+        <button mat-icon-button (click)="logout()">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </span>
 </mat-toolbar>

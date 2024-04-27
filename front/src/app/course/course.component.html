@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div class="content">
+        <mat-form-field appearance="fill">
+            <mat-label>Difficulty Level</mat-label>
+            <mat-select [(ngModel)]="selectedDifficulty">
+              <mat-option value="easy">Easy</mat-option>
+              <mat-option value="medium">Medium</mat-option>
+              <mat-option value="difficult">Hard</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-nav-list>
+            <a *ngFor="let lection of lections" mat-list-item href="">{{lection}}</a>
+        </mat-nav-list>
+    
+    </div>
+</div>
+

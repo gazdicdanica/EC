@@ -11,6 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { MainComponent } from './main/main.component';
 import { AppbarComponent } from './appbar/appbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CourseComponent } from './course/course.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SignupComponent,
     MainComponent,
-    AppbarComponent
+    AppbarComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

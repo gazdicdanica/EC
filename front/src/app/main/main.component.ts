@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
+
+  constructor(private router: Router){}
 
   edu_list = [
     {"name": "Math", "color": "#1976D2"},   // Blue
@@ -18,4 +21,8 @@ export class MainComponent {
     {"name": "Literature", "color": "#37474F"}, // Blue Grey
     {"name": "Art", "color": "#455A64"} // Blue Grey Darken 2
 ];
+
+  redirect(name: String) {
+    this.router.navigate(["course", name]);
+  }
 }
