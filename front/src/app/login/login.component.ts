@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  user: any;
+  user = {
+    email: "",
+    password: ""
+  };
 
   constructor(private router: Router) {}
 

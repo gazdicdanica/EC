@@ -10,7 +10,15 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   isConfirmed: boolean = false;
   responseError: boolean = false;
-  user: any;
+  user = {
+    email: "",
+    name: "",
+    surname: "",
+    username: "",
+    birthday: null,
+    password: ""
+  
+  };
 
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
