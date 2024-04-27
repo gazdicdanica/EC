@@ -14,7 +14,7 @@ export class LoginComponent {
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
   });
 
   credentialsError: boolean = false;
@@ -25,7 +25,8 @@ export class LoginComponent {
     if(this.loginForm.valid){
       let form = this.loginForm.value;
       this.authService.login(form.email!, form.password!).subscribe({
-        next: () => {
+        next: (response) => {
+          this.authService.setUser(response);
           this.router.navigate(['/home']);
           
         },

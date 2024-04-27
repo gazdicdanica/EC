@@ -1,6 +1,10 @@
 #main-view{
     text-align: center;
     padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /* min-height: 100vh; */
 }
 
@@ -50,3 +54,7 @@ mat-form-field{
     font-weight: bold;
 }
 
+
+.tab-group{
+    width: 420px;
+}

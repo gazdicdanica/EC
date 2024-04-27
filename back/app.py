@@ -29,7 +29,7 @@ def login_user():
             collection = db["users"]
             user = collection.find_one({"email": user_data.get("email"), "password": user_data.get("password")})
             if user:
-                return jsonify({"message": "User authenticated"}), 200
+                return jsonify({"user": user}), 200
             else:
                 print("Invalid email or password")
                 return jsonify({"error": "Invalid email or password"}), 400
@@ -42,13 +42,12 @@ def login_user():
 @app.route('/register', methods=['POST'])
 def register_user():
     if request.is_json:
-        # Extract JSON data from the request body
         try:
             user_data = request.json
             db = get_db()
             collection = db["users"]
             # TODO check if email is already in use
-            result = collection.insert_one({"email":user_data.get("email"), "password":user_data.get("password")})
+            result = collection.insert_one({"email":user_data.get("email"), "password":user_data.get("password"), "isOrganisation": user_data.get("isOrganisation")})
             if result.inserted_id:
                 return jsonify({"message": "User registered successfully"}), 201
             else:

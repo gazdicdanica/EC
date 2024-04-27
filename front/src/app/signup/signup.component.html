@@ -1,29 +1,61 @@
 <div>
     <div id="main-view">
         <h1>Welcome to NNNLearn</h1>
-        <form #form="ngForm" class="form" [formGroup]="signUpForm" (ngSubmit)="signUp()">
-            <mat-form-field class="form-input" appearance="outline">
-                <mat-label>E-mail</mat-label>
-                <input  matInput type="text" name="email" formControlName="email"/>
-                <mat-error></mat-error>
-            </mat-form-field>
-            
-            <mat-form-field class="form-input" appearance="outline">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" name="password" formControlName="password"/>
-                <mat-error></mat-error>
-            </mat-form-field>
-            <mat-form-field class="form-input" appearance="outline">
-                <mat-label>Confirm password</mat-label>
-                <input matInput type="password" name="confirmPassword" formControlName="confirmPassword"/>
-                <mat-error *ngIf="signUpForm.get('confirmPassword')!.hasError('confirmedValidator')">
-                    {{ signUpForm.get('confirmPassword')!.getError('confirmedValidator') }}
-                  </mat-error>
-            </mat-form-field>
-
-            <button class="form-btn" id="signup-form-btn" color="primary" type="submit" mat-raised-button>Sign up</button>
-        </form>
+        <mat-tab-group class="tab-group">
+            <mat-tab label="Individual">
+                <form #form="ngForm" class="form" [formGroup]="signUpFormIndividual" (ngSubmit)="signUpIndividual()">
+                    <div style="height: 15px;"></div>
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input  matInput type="text" name="email" formControlName="email"/>
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" name="password" formControlName="password"/>
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput type="password" name="confirmPassword" formControlName="confirmPassword"/>
+                        <mat-error *ngIf="signUpFormIndividual.get('confirmPassword')!.hasError('confirmedValidator')">
+                            {{ signUpFormIndividual.get('confirmPassword')!.getError('confirmedValidator') }}
+                          </mat-error>
+                    </mat-form-field>
+        
+                    <button class="form-btn" id="signup-form-btn" color="primary" type="submit" mat-raised-button>Sign up</button>
+                </form>
+            </mat-tab>
+            <mat-tab label="Organization">
+                <form #form="ngForm" class="form" [formGroup]="signUpFormOrganization" (ngSubmit)="signUpOrganization()">
+                    <div style="height: 15px;"></div>
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input  matInput type="text" name="email" formControlName="email"/>
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" name="password" formControlName="password"/>
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-input" appearance="outline">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput type="password" name="confirmPassword" formControlName="confirmPassword"/>
+                        <mat-error *ngIf="signUpFormOrganization.get('confirmPassword')!.hasError('confirmedValidator')">
+                            {{ signUpFormOrganization.get('confirmPassword')!.getError('confirmedValidator') }}
+                          </mat-error>
+                    </mat-form-field>
+        
+                    <button class="form-btn" id="signup-form-btn" color="primary" type="submit" mat-raised-button>Sign up</button>
+                </form>
+            </mat-tab>
+           
+        </mat-tab-group>
         <div class="bottom-link"><p>Already have an account? <a [routerLink]="['']">LOG IN</a></p></div>
+        
 
     </div>
 </div>
