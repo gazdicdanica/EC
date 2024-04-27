@@ -15,6 +15,7 @@ export class AskQuestionComponent {
   submitText() {
     this.lamaService.askQuestion(this.textInput, "").subscribe((res: string) => {
       this.response = res;
+      console.log('Response:', res);
     });
   }
 
