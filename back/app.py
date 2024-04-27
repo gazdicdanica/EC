@@ -154,6 +154,51 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
 
 
+    @app.route('/analyze_test', methods=['POST'])
+    def analyze_test_results():
+        if request.is_json:
+            try:
+                user_data = request.json
+                question_and_answers = user_data.get("questionAnswerDatamap")
+                fromLlama = None
+
+                fromLlama = lama_requests.analyze_test(question_and_answers)
+
+                flag, fromLlama = get_content(fromLlama)
+
+                return jsonify({
+                    "correct_json": flag,
+                    "test_results": fromLlama, 
+                    }), 200
+            
+
+            except Exception as e:
+                return jsonify({"error": str(e)}), 400
+        else:
+            return jsonify({"error": "Request body must be JSON"}), 400
+
+
+    @app.route('/analyze_user_performance', methods=['GET'])
+    def analyze_user_performace():
+        try:
+            user_data = request.json
+            tests = user_data.get("test_data")
+            fromLlama = None
+
+            fromLlama = lama_requests.analyze_performance(tests)
+
+            flag, fromLlama = get_content(fromLlama)
+
+            return jsonify({
+                "correct_json": flag,
+                "user_performace": fromLlama, 
+                }), 200
+        
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+
     return app    
         
 
