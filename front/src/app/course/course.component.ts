@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -23,12 +24,20 @@ export class CourseComponent {
   lections : String[] = [];
   selectedDifficulty: string = "easy";
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private location: Location) {
     this.route.params.subscribe(params => {
       this.course = params['course'];
 
       this.lections = this.all_lections.find(x => x.course === this.course)!.lectures;
     });
+  }
+
+  startQuiz(lection: String) {
+    console.log("Starting quiz for " + lection + " with difficulty " + this.selectedDifficulty);
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

@@ -7,5 +7,21 @@
 
 .content{
     margin-top: 30px;
-    width: 70%;
+    width: 60%;
+}
+
+.list-item-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    width: 58%;
 }
