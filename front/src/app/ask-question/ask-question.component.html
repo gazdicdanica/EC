@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="input-container">
+      <textarea [(ngModel)]="textInput" (input)="onInput()" placeholder="Unesite tekst"></textarea>
+    </div>
+    <button class="submit-button" (click)="submitText()">Pošalji</button>
+    <div class="response-container">
+      <ng-container *ngIf="response">
+        <div class="response">{{ response }}</div>
+      </ng-container>
+    </div>
+  </div>
+  
