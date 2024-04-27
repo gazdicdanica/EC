@@ -12,7 +12,8 @@ socketio = None
 
 def get_content(response):
     try:
-        response = json.loads(str(response))
+        print("resp")
+        print(response)
         return True, response["choices"][0]["message"]["content"]
     except Exception as e:
         print("Error in get_content: ", e)
@@ -112,6 +113,7 @@ def create_app():
                 flag, fromLlama = get_content(fromLlama)
 
                 return jsonify({
+                    "answer": True if "Y" in fromLlama else False,
                     "correct_json": flag,
                     "questions": fromLlama, 
                     }), 200
@@ -123,7 +125,33 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
         
 
+    @app.route('/get_answer_for_my_question', methods=['POST'])
+    def answer_my_question():
+        if request.is_json:
+            try:
+                user_data = request.json
+                question = user_data.get("question")
+                generalization_coefficient = None
+                fromLlama = None
 
+                if user_data.get("generalization_coefficient"):
+                    generalization_coefficient = user_data.get("generalization_coefficient")
+                    fromLlama = lama_requests.answer_question(question, generalization_coefficient)
+                else:
+                    fromLlama = lama_requests.answer_question(question)
+
+                flag, fromLlama = get_content(fromLlama)
+
+                return jsonify({
+                    "correct_json": flag,
+                    "questions": fromLlama, 
+                    }), 200
+            
+
+            except Exception as e:
+                return jsonify({"error": str(e)}), 400
+        else:
+            return jsonify({"error": "Request body must be JSON"}), 400
 
 
     return app    

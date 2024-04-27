@@ -32,6 +32,7 @@ def create_n_questions_with_m_answers_where_first_is_correct(subject, sub_type, 
             ],
             "stream": False,
             "function_call": "generate_questions",
+            "language": "en"
         }
 
     response = llama.run(api_request_json)
@@ -61,6 +62,7 @@ def ask_me_n_questions_on_subject(n, subject, difficulty):
           ],
           "stream": False,
           "function_call": "generate_questions",
+            "language": "en"
       }
     response = llama.run(api_request_json)
     
@@ -79,7 +81,7 @@ def extract_questions_from_response(response):
 
 
 def check_answer_for_question(answer, question, precision=0.7):
-    message = f"Is '{answer}' the correct answer for the question: '{question}'? Take into consideration that answers may vary with precision: '{precision}' but do not provide me with exact precision. Start with Y/N depending on if right or wrong and provide answer with small explenation. Do not put precision data into answer and also do not use any quotation marks nor single nor double."
+    message = f"Is '{answer}' the correct answer for the question: '{question}'? Take into consideration that answers may vary with precision: '{precision}' but do not provide me with exact precision. Start with Y/N depending on if right or wrong and provide answer with small explenation. Do not put precision data into answer and also do not use any quotation marks nor single nor double nor \ for escapping characters."
     
     api_request_json = {
         "messages": [
@@ -87,7 +89,8 @@ def check_answer_for_question(answer, question, precision=0.7):
         ],
         "functions": [],
         "stream": False,
-        "precision": precision
+        "precision": precision,
+        "language": "en"
     }
     response = llama.run(api_request_json)
 
@@ -103,7 +106,8 @@ def answer_question(question, generalization_coefficient=0.5):
         ],
         "functions": [],
         "stream": False,
-        "generalization_coefficient": generalization_coefficient
+        "generalization_coefficient": generalization_coefficient,
+        "language": "en"
     }
     
     response = llama.run(api_request_json)
@@ -129,7 +133,8 @@ def analyze_test(question_and_answer):
                 "required": ["questions_and_answers"],
             }
         ],
-        "stream": False
+        "stream": False,
+        "language": "en"
     }
     
     response = llama.run(api_request_json)
@@ -156,7 +161,8 @@ def analyze_performance(reports):
             }
         ],
         "stream": False,
-        "generalization_coefficient": 1
+        "generalization_coefficient": 1,
+        "language": "en"
     }
 
     response = llama.run(api_request_json)
