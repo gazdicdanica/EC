@@ -14,8 +14,10 @@ export class LoginComponent {
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
   });
+
+  isLoading: boolean = false;
 
   credentialsError: boolean = false;
 
@@ -23,14 +25,18 @@ export class LoginComponent {
     this.credentialsError = false
 
     if(this.loginForm.valid){
+      this.isLoading = true;
       let form = this.loginForm.value;
       this.authService.login(form.email!, form.password!).subscribe({
-        next: () => {
+        next: (response) => {
+          this.authService.setUser(response);
           this.router.navigate(['/home']);
+          this.isLoading = false;
           
         },
         error: (error) => {
           this.credentialsError = true;
+          this.isLoading = false;
         }
       })
     }

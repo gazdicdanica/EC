@@ -1,0 +1,48 @@
+<div style="display: flex; justify-content: center;">
+    <div class="header">
+        <div style="display: flex; align-items: center;">
+            <button mat-icon-button (click)="back()">
+                <span class="material-symbols-outlined">
+                    arrow_back_ios
+                </span>
+            </button>
+            <div style="width: 10px;"></div>
+            <h1 style="color: rgb(61, 61, 61); font-weight: 500;">{{course}} topics</h1>
+        </div>
+        
+        <mat-divider></mat-divider>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="content">
+        <mat-form-field style="margin-left: 10px;" appearance="outline">
+            <mat-label>Difficulty Level</mat-label>
+            <mat-select [(ngModel)]="selectedDifficulty">
+                <mat-option value="easy">Easy</mat-option>
+                <mat-option value="medium">Medium</mat-option>
+                <mat-option value="hard">Hard</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-list style=" display: flex; flex-direction: column; align-items: center;">
+            <mat-list-item *ngFor="let lection of lections">
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <div class="list-item-wrapper">
+                        {{lection}}
+                        <button color="accent" mat-flat-button (click)="startQuiz(lection)"
+                            style="border-radius: 10px;">
+                            <p>Start quiz</p>
+                            <mat-icon>play_arrow</mat-icon>
+                        </button>
+                    </div>
+                    <mat-divider></mat-divider>
+
+                </div>
+
+
+            </mat-list-item>
+        </mat-list>
+
+    </div>
+</div>

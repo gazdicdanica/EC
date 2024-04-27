@@ -12,20 +12,46 @@ export class SignupComponent {
   // isConfirmed: boolean = false;
   responseError: boolean = false;
 
-  signUpForm = new FormGroup({
+  signUpFormOrganization = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required])
+    confirmPassword: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required])
+  }, this.matchValidator('password', 'confirmPassword'));
+
+  signUpFormIndividual = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required])
   }, this.matchValidator('password', 'confirmPassword'));
 
 
   constructor(private router: Router, private authService: AuthService) {
   }
 
-  signUp(): void {
+  signUpOrganization(): void {
 
-    if (this.signUpForm.valid) {
-      let form = this.signUpForm.value;
+    if (this.signUpFormOrganization.valid) {
+      let form = this.signUpFormOrganization.value;
+      this.authService.register(form.email!, form.password!).subscribe({
+        next: () => {
+          this.router.navigate(['']);
+          alert('User registered successfully');
+          
+        },
+        error: (error) => {
+          this.responseError = true;
+        }
+      
+      });
+    }
+  }
+  
+  signUpIndividual(): void {
+
+    if (this.signUpFormIndividual.valid) {
+      let form = this.signUpFormIndividual.value;
       this.authService.register(form.email!, form.password!).subscribe({
         next: () => {
           this.router.navigate(['']);

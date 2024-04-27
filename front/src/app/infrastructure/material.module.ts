@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -54,7 +56,8 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
 
   ],
   providers: [  

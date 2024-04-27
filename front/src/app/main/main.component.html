@@ -1,1 +1,16 @@
-<p>home works</p>
+<div style="display: flex; justify-content: center;">
+    <div class="header">
+        <h1 style="color: rgb(61, 61, 61); font-weight: 500;">Enrolled Courses</h1>
+        <mat-divider></mat-divider>
+    </div>
+</div>
+<div class="content">
+
+    <div class="wrapper">
+        <div class="item" *ngFor="let edu of edu_list" (click)="redirect(edu.name)">
+            <div class="color-div" [style.background-color]="edu.color"></div>
+            <div class="name-div" [style.color]="edu.color">{{edu.name}}</div>
+        </div>
+    </div>
+
+</div>

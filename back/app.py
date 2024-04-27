@@ -193,8 +193,6 @@ def create_app():
                 "correct_json": flag,
                 "user_performace": fromLlama, 
                 }), 200
-        
-
         except Exception as e:
             return jsonify({"error": str(e)}), 400
 
