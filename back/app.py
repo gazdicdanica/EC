@@ -94,7 +94,7 @@ def create_app():
                 if subject:
                     llamaaa_response = lama_requests.get_question(subject, difficulty, module, subject["questions"])
                 else:
-                    llamaaa_response = lama_requests.get_question(subject, difficulty, module, subjec)
+                    llamaaa_response = lama_requests.get_question(subject, difficulty, module, subject)
                 return jsonify({"question": llamaaa_response})
 
             except Exception as e:
