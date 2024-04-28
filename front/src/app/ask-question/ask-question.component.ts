@@ -12,15 +12,25 @@ export class AskQuestionComponent {
   resp: any = null;
   responseItems: any[] = [{ isResponse: false, textInput: '', response: null }];
 
+  isLoading: boolean = false;
 
   constructor(private lamaService: LamaServiceService) {}
 
   submitText() {
     if(this.textInput === '') this.textInput = "Tell me a programming joke";
-    this.lamaService.askQuestion(this.textInput, "").subscribe((res: any) => {
-      this.resp = res;
-      console.log('Response:', res);
+    this.isLoading = true;
+    this.lamaService.askQuestion(this.textInput, "").subscribe({
+      next: (response) => {
+        
+      this.resp = response;
+      console.log('Response:', response);
+      
+      this.isLoading = false;
       // this.addBlock()
+      },
+      error: (error) => {
+        this.isLoading = false;
+      }
     });
   }
 

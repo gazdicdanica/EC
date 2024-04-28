@@ -190,7 +190,8 @@ def create_app():
                 user_data = request.json
                 question_and_answers = user_data.get("questionAnswerDatamap")
                 fromLlama = None
-
+                print("question_and_answers")
+                print(question_and_answers)
                 fromLlama = lama_requests.analyze_test(question_and_answers)
 
                 flag, fromLlama = get_content(fromLlama)
@@ -225,6 +226,7 @@ def create_app():
                 }), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 400
+
 
 
     return app    

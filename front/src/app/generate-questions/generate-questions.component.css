@@ -32,6 +32,9 @@ button {
     font-size: large;
 }
 
+.label {
+    width: 100%;
+}
 .response-container {
     margin-top: 20px;
 }
@@ -66,4 +69,13 @@ button {
 
 .submit-button {
     margin-top: 20px;
+}
+
+.inner-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
 }
