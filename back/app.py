@@ -1,3 +1,4 @@
+from re import sub
 from flask import Flask, jsonify, request
 import pymongo, json
 from pymongo import MongoClient
@@ -77,6 +78,36 @@ def create_app():
         else:
             return jsonify({"error": "Request body must be JSON"}), 400
         
+
+    @app.route('/question', methods=['POST'])
+    def get_question():
+        if request.is_json:
+            try:
+                data = request.json
+                subject = data.get("subject")
+                difficulty = data.get("difficulty")
+                module = data.get("module")
+                user = data.get("email")
+
+                questions_collection = db["questions"]
+                subject_doc = questions_collection.find_one({"subject": subject})
+                print(subject_doc)
+                if subject_doc:
+                    llama_question = lama_requests.get_question(subject, difficulty, module, subject_doc["questions"])
+                else:
+                    llama_question = lama_requests.get_question(subject, difficulty, module, [])
+                    questions_collection.insert_one({"subject":subject, "questions":[llama_question]})
+                answers = []
+                answers.append(lama_requests.get_answer(llama_question))
+                answers.append(lama_requests.get_wrong_answer(llama_question, []))
+                answers.append(lama_requests.get_wrong_answer(llama_question, answers[1:]))
+                return jsonify({"question": llama_question, "answers": answers})
+
+            except Exception as e:
+                return jsonify({"error": str(e)}), 400
+        else:
+            return jsonify({"error": "Request body must be JSON"}), 400
+
 
     @app.route('/ask_me_about_topic', methods=['POST'])
     def ask_me_about_topic():
