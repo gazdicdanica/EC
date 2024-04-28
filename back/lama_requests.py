@@ -1,7 +1,30 @@
 from llamaapi import LlamaAPI
-
+import re
 
 llama = LlamaAPI("LL-plMcYMhKmGGflEwSwBS0NQYLL2c951Y5v0MQ7XuWlmKYH8D22LWbR8loamI1VBhK")
+
+def remove_emojis(data):
+    emoj = re.compile("["
+        u"\U0001F600-\U0001F64F"  # emoticons
+        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        u"\U00002500-\U00002BEF"  # chinese char
+        u"\U00002702-\U000027B0"
+        u"\U000024C2-\U0001F251"
+        u"\U0001f926-\U0001f937"
+        u"\U00010000-\U0010ffff"
+        u"\u2640-\u2642" 
+        u"\u2600-\u2B55"
+        u"\u200d"
+        u"\u23cf"
+        u"\u23e9"
+        u"\u231a"
+        u"\ufe0f"  # dingbats
+        u"\u3030"
+                      "]+", re.UNICODE)
+    return re.sub(emoj, '', data)
+
 
 def add_past_answers(msg: str, past: list[str]):
     if len(past) != 0:
@@ -12,8 +35,8 @@ def add_past_answers(msg: str, past: list[str]):
     return msg
 
 def get_wrong_answer(question: str, past_answers: list[str]):
-    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
-    usr_msg = f"Answer this question falsely: {question}"
+    system_msg = "You are a serious assistant and you dont use smileys"
+    usr_msg = f"Answer this question but alter it to make it seem correct but is actually false: {question}"
     usr_msg = add_past_answers(usr_msg, past_answers)
     usr_msg += "Dont use any emojis please"
 
@@ -27,7 +50,7 @@ def get_wrong_answer(question: str, past_answers: list[str]):
 
     response = llama.run(api_request_json)
     output = response.json()['choices'][0]['message']
-    return output["content"]
+    return remove_emojis(output["content"])
 
 def get_answer(question: str):
     system_msg = "You are a serious assistant that gives answers that are as concise as possible"
