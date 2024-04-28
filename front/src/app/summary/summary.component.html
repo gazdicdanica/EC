@@ -1,0 +1,30 @@
+<div class="content">
+    <div class="wrapper">
+        <h1>Results</h1>
+
+        <div style="font-size: 20px;">{{percentage}}% Correct</div>
+        <div style="height: 20px;"></div>
+        <mat-divider style="width: 100%;"></mat-divider>
+
+        <div class="q-wrap" *ngFor="let question of questions; let i = index">
+            <div class="question">
+                <div class="question-text">Question {{i + 1}} : {{question.question}} </div>
+                <div class="answer">
+                    <div>
+                        <div style="font-weight: 500;">Correct answer</div>
+                        <div> <mat-icon style=" color: rgb(34, 110, 34);">check</mat-icon> {{answers[i]}}</div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        <div style="font-weight: 500;">Your answer</div>
+                        <div> <mat-icon style="color: rgb(171, 0, 0);" *ngIf="answers[i] != selectedAnswers[i]">close</mat-icon> <mat-icon  style="color: rgb(34, 110, 34);" *ngIf="answers[i] == selectedAnswers[i]">check</mat-icon> {{selectedAnswers[i]}}</div>
+                    </div>                    
+                </div>
+            </div>
+
+        </div>
+                    
+
+    </div>
+
+</div>

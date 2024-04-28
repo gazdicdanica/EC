@@ -1,7 +1,30 @@
 from llamaapi import LlamaAPI
-
+import re
 
 llama = LlamaAPI("LL-OMRR5S1cTUrbM3Bv1bq5Y3CVx9PGpwWPLoFtAVCJVWFPqwAT9eqCqVQuE2pB0ra6")
+
+def remove_emojis(data):
+    emoj = re.compile("["
+        u"\U0001F600-\U0001F64F"  # emoticons
+        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        u"\U00002500-\U00002BEF"  # chinese char
+        u"\U00002702-\U000027B0"
+        u"\U000024C2-\U0001F251"
+        u"\U0001f926-\U0001f937"
+        u"\U00010000-\U0010ffff"
+        u"\u2640-\u2642" 
+        u"\u2600-\u2B55"
+        u"\u200d"
+        u"\u23cf"
+        u"\u23e9"
+        u"\u231a"
+        u"\ufe0f"  # dingbats
+        u"\u3030"
+                      "]+", re.UNICODE)
+    return re.sub(emoj, '', data)
+
 
 def add_past_answers(msg: str, past: list[str]):
     if len(past) != 0:
@@ -12,11 +35,26 @@ def add_past_answers(msg: str, past: list[str]):
     return msg
 
 def get_wrong_answer(question: str, past_answers: list[str]):
-    system_msg = "You are a serious assistant that gives out slightly false info, \
-                  You are not friendly. \
-                  You dont engage with the user"
-    usr_msg = f"Answer this question: {question}"
+    system_msg = "You are a serious assistant and you dont use smileys"
+    usr_msg = f"Answer this question as short as posible but alter it to make it seem correct but is actually false: {question}"
     usr_msg = add_past_answers(usr_msg, past_answers)
+    usr_msg += "Dont use any emojis please"
+
+    api_request_json = {
+        'model': 'llama-13b-chat',
+        "messages": [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": usr_msg},
+        ],
+    }
+
+    response = llama.run(api_request_json)
+    output = response.json()['choices'][0]['message']
+    return remove_emojis(output["content"])
+
+def get_answer(question: str):
+    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
+    usr_msg = f"Answer this question as short as possible: {question}"
     usr_msg += "Dont use any emojis please"
 
     api_request_json = {
@@ -32,12 +70,12 @@ def get_wrong_answer(question: str, past_answers: list[str]):
     return output["content"]
 
 def get_question(subject: str, difficulty: str, module: str, past_questions: list[str] = []): 
-    system_msg = "You are a serious assistant that only prints out questions \
-                  based on difficulity and a subject,\
-                  you are not friendly" 
-    usr_msg = f"Give me one {difficulty} question about {module} from {subject}."
+    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
+    usr_msg = f"Give me one {difficulty} question about {module} from {subject}.\
+            Make it as short as possible"
     usr_msg = add_past_answers(usr_msg, past_questions)
-    usr_msg += "Dont start with: Sure! Here is so and so..."
+    usr_msg += "Be as concise as possible! \
+            Dont start with: Sure! Here is so and so or something similar"
     api_request_json = {
         'model': 'llama-13b-chat',
         "messages": [

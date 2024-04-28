@@ -15,6 +15,10 @@ export class AppbarComponent {
     this.authService.setUser(null);
     this.router.navigate([""]);
   }
+
+  route(){
+    this.router.navigate(["/home"]);
+  }
   
 
 }

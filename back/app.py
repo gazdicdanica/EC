@@ -80,6 +80,7 @@ def create_app():
         
 
     @app.route('/question', methods=['POST'])
+    @cross_origin()
     def get_question():
         if request.is_json:
             try:
@@ -87,15 +88,21 @@ def create_app():
                 subject = data.get("subject")
                 difficulty = data.get("difficulty")
                 module = data.get("module")
-                user = data.get("email")
 
                 questions_collection = db["questions"]
-                subject = questions_collection.find_one({"subject": subject})
-                if subject:
-                    llamaaa_response = lama_requests.get_question(subject, difficulty, module, subject["questions"])
+                subject_doc = questions_collection.find_one({"subject": subject})
+                print(subject_doc)
+                if subject_doc:
+                    llama_question = lama_requests.get_question(subject, difficulty, module, subject_doc["questions"])
+                    questions_collection.update_one({"subject":subject},{"$addToSet": {"questions":llama_question}})
                 else:
-                    llamaaa_response = lama_requests.get_question(subject, difficulty, module, subject)
-                return jsonify({"question": llamaaa_response})
+                    llama_question = lama_requests.get_question(subject, difficulty, module, [])
+                    questions_collection.insert_one({"subject":subject, "questions":[llama_question]})
+                answers = []
+                answers.append(lama_requests.get_answer(llama_question))
+                answers.append(lama_requests.get_wrong_answer(llama_question, []))
+                answers.append(lama_requests.get_wrong_answer(llama_question, answers[1:]))
+                return jsonify({"question": llama_question, "answers": answers})
 
             except Exception as e:
                 return jsonify({"error": str(e)}), 400

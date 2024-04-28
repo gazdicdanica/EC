@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
 import { AskQuestionComponent } from './ask-question/ask-question.component';
 import { GenerateQuestionsComponent } from './generate-questions/generate-questions.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { GenerateQuestionsComponent } from './generate-questions/generate-questi
     AppbarComponent,
     CourseComponent,
     AskQuestionComponent,
-    GenerateQuestionsComponent
+    GenerateQuestionsComponent,
+    QuizComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,
