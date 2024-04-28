@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuizService } from '../services/quiz.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Location } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class QuizComponent {
 
-  constructor(private route: ActivatedRoute, private quizService: QuizService, private location: Location) {
+  constructor(private route: ActivatedRoute, private quizService: QuizService, private location: Location, private router: Router) {
     this.route.params.subscribe(params => {
       this.course = params['course'];
       this.lection = params['lection'];
@@ -49,10 +49,9 @@ export class QuizComponent {
   }
 
   ngOnInit() {
-    this.selectedAnswers = new Array(this.questions.length).fill(-1);
+    this.selectedAnswers = new Array(this.questions.length).fill('');
     this.feedback = new Array(this.questions.length).fill('');
     this.questions.forEach((question) => {
-      console.log("one more");
       const group = new FormGroup({
         answer: new FormControl(null, Validators.required) // Required to select an answer
       });
@@ -68,6 +67,7 @@ export class QuizComponent {
   }
 
   onIndexChange(step: StepperSelectionEvent) {
+    this.selectedAnswers[step.previouslySelectedIndex] = this.stepControls[step.previouslySelectedIndex].value.answer;
     const newStepIndex = step.selectedIndex;
     if(Object.keys(this.questions[newStepIndex]).length === 0 && this.questions[newStepIndex].constructor === Object) {
       this.getQuestion(newStepIndex);
@@ -78,6 +78,22 @@ export class QuizComponent {
     this.location.back();
   }
 
-  finish() {}
+  finish() {
+    const model = {
+      course: this.course,
+      lection: this.lection,
+      difficulty: this.difficulty,
+      questions: this.questions,
+      answers: this.answers,
+      selectedAnswers: this.selectedAnswers,
+    
+    };
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "data": JSON.stringify(model)
+      }
+    };
+    this.router.navigate(['/summary'], navigationExtras); 
+  }
 
 }

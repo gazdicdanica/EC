@@ -5,14 +5,19 @@
             <ng-template matStepLabel>Question {{ i + 1 }}</ng-template>
             <div class="wrapper">
                 <div class="background">
-                    <mat-spinner color="accent" *ngIf="isLoading"></mat-spinner>
-                    <div style="width: 380px;"  *ngIf="!isLoading">
+                    <div *ngIf="isLoading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                        <h1>Hold on while we cook up a question for you...</h1>
+                        <div style="height: 20px;"></div>
+                        <mat-spinner color="accent" ></mat-spinner>
+
+                    </div>
+                    <div style="width: 380px; overflow-y: auto;"  *ngIf="!isLoading">
                         <div style="text-align: center; font-weight: bold; font-size: 30px;">
                             {{ question.question }}
                         </div>
                         <div style="height: 15px;"></div>
                         <mat-radio-group style="display: flex; flex-direction: column; align-items: flex-start;" formControlName="answer">
-                            <mat-radio-button *ngFor="let option of question.answers; let j = index" [value]="j">{{ option }}</mat-radio-button>
+                            <mat-radio-button style="width: 100%;" *ngFor="let option of question.answers; let j = index" [value]="option">{{ option }}</mat-radio-button>
                         </mat-radio-group>
                         <div style="display: flex; width: 100%; justify-content: flex-end; margin-top: 20px;">
                             <button *ngIf="i != 0" mat-button matStepperPrevious>Back</button>
