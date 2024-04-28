@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LamaServiceService } from '../services/lama-service.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-ask-question',
@@ -8,19 +9,29 @@ import { LamaServiceService } from '../services/lama-service.service';
 })
 export class AskQuestionComponent {
   textInput = '';
-  response: string | null = null;
+  resp: any = null;
+  responseItems: any[] = [{ isResponse: false, textInput: '', response: null }];
+
 
   constructor(private lamaService: LamaServiceService) {}
 
   submitText() {
-    this.lamaService.askQuestion(this.textInput, "").subscribe((res: string) => {
-      this.response = res;
+    if(this.textInput === '') this.textInput = "Tell me a programming joke";
+    this.lamaService.askQuestion(this.textInput, "").subscribe((res: any) => {
+      this.resp = res;
       console.log('Response:', res);
+      // this.addBlock()
     });
   }
 
-  onInput() {
-    // Dynamic resizing of textarea (if needed)
+  addBlock() {
+    const containerDiv = document.getElementById('containerDiv')!;
+
+    const newElement = document.createElement('div');
+    
+    newElement.classList.add('input-container');
+    
+    containerDiv.appendChild(newElement);
   }
 
 }

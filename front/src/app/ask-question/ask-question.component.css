@@ -2,39 +2,60 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
   
-  .input-container {
+.input-container {
     margin-bottom: 20px;
-  }
+    margin-top: 20px;
+    width: 70%;
+}
   
-  textarea {
-    width: 300px;
+textarea {
+    width: 100%;
     height: auto;
     min-height: 100px;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: vertical;
-  }
-  
-  .submit-button {
-    padding: 10px 20px;
+    text-align: center;
+}
+
+button {
+    padding-top: 20px;
+    padding-bottom: 20px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-  }
-  
-  .response-container {
+    font-size: large;
+}
+
+.response-container {
     margin-top: 20px;
-  }
-  
-  .response {
+}
+
+.response {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-  }
+}
+
   
+.container {
+    /* text-align: center; */
+}
+  
+.response-container {
+    margin-top: 20px;
+}
+
+.response {
+    font-size: 18px;
+}
+
+.submit-button {
+    margin-top: 20px;
+}

@@ -169,7 +169,7 @@ def create_app():
 
                 return jsonify({
                     "correct_json": flag,
-                    "questions": fromLlama, 
+                    "answer": fromLlama, 
                     }), 200
             
 

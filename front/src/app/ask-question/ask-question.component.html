@@ -1,12 +1,17 @@
 <div class="container">
     <div class="input-container">
-      <textarea [(ngModel)]="textInput" (input)="onInput()" placeholder="Unesite tekst"></textarea>
+      <textarea [(ngModel)]="textInput" placeholder="Unesite tekst"></textarea>
     </div>
-    <button class="submit-button" (click)="submitText()">Pošalji</button>
-    <div class="response-container">
-      <ng-container *ngIf="response">
-        <div class="response">{{ response }}</div>
-      </ng-container>
+
+    <div class="input-container" *ngIf="resp" [@fadeIn]="resp.answer ? 'visible' : 'hidden'">
+        <ng-container>
+          <div *ngIf="resp.correct_json" class="response">{{ resp.answer }}</div>
+        </ng-container>
     </div>
+
+    <div id="containerDiv"></div>
+
+    
+    <button class="input-container" (click)="submitText()">Submit</button>
   </div>
   
