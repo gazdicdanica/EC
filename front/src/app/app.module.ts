@@ -13,6 +13,7 @@ import { AppbarComponent } from './appbar/appbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { QuizComponent } from './quiz/quiz.component';
     MainComponent,
     AppbarComponent,
     CourseComponent,
-    QuizComponent
+    QuizComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,
