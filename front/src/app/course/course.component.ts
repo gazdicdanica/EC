@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -24,7 +24,7 @@ export class CourseComponent {
   lections : String[] = [];
   selectedDifficulty: string = "easy";
 
-  constructor(private route: ActivatedRoute, private location: Location) {
+  constructor(private route: ActivatedRoute, private router: Router, private location: Location) {
     this.route.params.subscribe(params => {
       this.course = params['course'];
 
@@ -34,6 +34,7 @@ export class CourseComponent {
 
   startQuiz(lection: String) {
     console.log("Starting quiz for " + lection + " with difficulty " + this.selectedDifficulty);
+    this.router.navigate(['/quiz', this.course, lection, this.selectedDifficulty]);
   }
 
   back(){

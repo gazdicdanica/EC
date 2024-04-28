@@ -2,18 +2,26 @@
     <mat-spinner color="accent"></mat-spinner>
 </div>
 
-<!-- <mat-stepper #stepper linear>
+<mat-stepper #stepper [linear]="false">
     <mat-step *ngFor="let question of questions; let i = index" [stepControl]="stepControls[i]">
-      <form [formGroup]="stepControls[i]" (ngSubmit)="checkAnswer(i)">
-        <ng-template matStepLabel>{{ question.text }}</ng-template>
-        <ul>
-          <li *ngFor="let option of question.options; let j = index">
-            <input type="radio" formControlName="answer" [value]="j"> {{ option }}
-          </li>
-        </ul>
-        <div>{{ feedback[i] }}</div>
-        <button mat-button matStepperNext type="submit">Next</button>
-      </form>
+        <form [formGroup]="stepControls[i]">
+            <ng-template matStepLabel>Question {{ i + 1 }}</ng-template>
+            <div class="wrapper">
+                <div class="background">
+                    <div styl>{{ question.question }}</div>
+                    <div style="height: 15px;">
+
+                    </div>
+                    <mat-radio-group style="display: flex; flex-direction: column; align-items: flex-start;" formControlName="answer">
+                        <mat-radio-button *ngFor="let option of question.options; let j = index"
+                            [value]="j">{{option}}</mat-radio-button>
+                    </mat-radio-group>
+                    <div style="display: flex; margin-top: 20px;">
+                    <button *ngIf="i != 0" mat-button matStepperPrevious>Back</button>
+                    <button *ngIf="i != questions.length - 1" mat-button matStepperNext type="button" (click)="setBool()">Next</button></div>
+                </div>
+            </div>
+            
+        </form>
     </mat-step>
-  </mat-stepper> -->
-  
+</mat-stepper>
