@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuizService } from '../services/quiz.service';
 import { ActivatedRoute } from '@angular/router';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quiz',
@@ -10,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuizComponent {
 
-  constructor(private route: ActivatedRoute, private quizService: QuizService) {
+  constructor(private route: ActivatedRoute, private quizService: QuizService, private location: Location) {
     this.route.params.subscribe(params => {
       this.course = params['course'];
       this.lection = params['lection'];
@@ -25,48 +27,6 @@ export class QuizComponent {
   isLoading: boolean = false;
 
   questions: any[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
-
-  // questions = [
-  //   {
-  //     question: 'What is the capital of France?',
-  //     options: ['Paris', 'London', 'Berlin'],
-  //   },
-  //   {
-  //     question: 'What is the tallest mountain in the world?',
-  //     options: ['Mount Everest', 'K2', 'Mount Kilimanjaro'],
-  //   },
-  //   {
-  //     question: 'What is the largest ocean on Earth?',
-  //     options: ['Pacific Ocean', 'Atlantic Ocean', 'Indian Ocean'],
-  //   },
-  //   {
-  //     question: 'What is the currency of Japan?',
-  //     options: ['Japanese Yen (JPY)', 'Chinese Yuan (CNY)', 'South Korean Won (KRW)'],
-  //   },
-  //   {
-  //     question: 'Who painted the Mona Lisa?',
-  //     options: ['Leonardo da Vinci', 'Michelangelo', 'Vincent van Gogh'],
-  //   },
-  //   {
-  //     question: 'What is the largest planet in our solar system?',
-  //     options: ['Jupiter', 'Saturn', 'Earth'],
-  //   },
-  //   {
-  //     question: 'In which year did World War II begin?',
-  //     options: ['1939', '1914', '1945'],
-  //   },
-  //   {
-  //     question: 'What is the chemical symbol for water?',
-  //     options: ['H2O', 'CO2', 'NaCl'],
-  //   },
-  //   {
-  //     question: 'How many bones are there in the adult human body?',
-  //     options: ['Around 206 (estimates vary slightly)', '100', '300'],
-  //   },
-  //   {
-  //     question: 'What is the name of the search engine you\'re currently using to ask me questions?',
-  //     options: ['Bard', 'Bing', 'DuckDuckGo'],
-  //   },];
 
   stepControls: FormGroup[] = []; // Array of form controls
   feedback: string[] = [];
@@ -107,11 +67,15 @@ export class QuizComponent {
     return control!.valid && control!.value === this.answers[index];
   }
 
-  setBool(i: number) {
-
-    if (Object.keys(this.questions[i]).length === 0 && this.questions[i].constructor === Object) {
-      this.getQuestion(i);  
+  onIndexChange(step: StepperSelectionEvent) {
+    const newStepIndex = step.selectedIndex;
+    if(Object.keys(this.questions[newStepIndex]).length === 0 && this.questions[newStepIndex].constructor === Object) {
+      this.getQuestion(newStepIndex);
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 
   finish() {}

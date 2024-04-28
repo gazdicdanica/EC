@@ -1,5 +1,5 @@
 
-<mat-stepper #stepper [linear]="false">
+<mat-stepper #stepper [linear]="false" (selectionChange)="onIndexChange($event)">
     <mat-step *ngFor="let question of questions; let i = index" [stepControl]="stepControls[i]">
         <form [formGroup]="stepControls[i]">
             <ng-template matStepLabel>Question {{ i + 1 }}</ng-template>
@@ -16,7 +16,7 @@
                         </mat-radio-group>
                         <div style="display: flex; width: 100%; justify-content: flex-end; margin-top: 20px;">
                             <button *ngIf="i != 0" mat-button matStepperPrevious>Back</button>
-                            <button *ngIf="i != questions.length - 1" mat-button matStepperNext type="button" (click)="setBool(i+1)">Next</button>
+                            <button *ngIf="i != questions.length - 1" mat-button matStepperNext type="button">Next</button>
                             <button *ngIf="i == questions.length - 1" mat-button (click)="finish()">Finish</button>
                         </div>
                     </div>
@@ -27,3 +27,7 @@
         
     </mat-step>
 </mat-stepper>
+
+<span style="position: absolute; bottom: 20px; left: 20px; font-size: 12px; color: rgba(0, 0, 0, 0.503);">{{course}} / {{lection}} / {{difficulty}}</span>
+
+<button mat-raised-button color="accent" class="cancel-btn" (click)="cancel()"> <mat-icon>close</mat-icon>Cancel</button>
