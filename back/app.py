@@ -80,6 +80,7 @@ def create_app():
         
 
     @app.route('/question', methods=['POST'])
+    @cross_origin()
     def get_question():
         if request.is_json:
             try:
