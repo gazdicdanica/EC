@@ -20,5 +20,16 @@ export class AppbarComponent {
     this.router.navigate(["/home"]);
   }
   
+  isLoggedIn(): boolean {
+    return this.authService.getUser() !== null;
+  }
+
+  generateQuestions(){
+    this.router.navigate(["/askNQuestion"]);
+  }
+
+  askQuestion(){
+    this.router.navigate(["/askQuestion"]);
+  }
 
 }

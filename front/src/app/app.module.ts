@@ -16,6 +16,7 @@ import { AskQuestionComponent } from './ask-question/ask-question.component';
 import { GenerateQuestionsComponent } from './generate-questions/generate-questions.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { SummaryComponent } from './summary/summary.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SummaryComponent } from './summary/summary.component';
     AskQuestionComponent,
     GenerateQuestionsComponent,
     QuizComponent,
-    SummaryComponent
+    SummaryComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

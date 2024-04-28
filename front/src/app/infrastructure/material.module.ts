@@ -18,6 +18,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatRadioModule,
     MatListModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSnackBarModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -60,7 +62,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatRadioModule,
     MatListModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSnackBarModule
   ],
   providers: [  
     MatDatepickerModule,  

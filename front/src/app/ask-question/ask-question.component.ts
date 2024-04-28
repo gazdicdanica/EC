@@ -23,7 +23,6 @@ export class AskQuestionComponent {
       next: (response) => {
         
       this.resp = response;
-      console.log('Response:', response);
       
       this.isLoading = false;
       // this.addBlock()

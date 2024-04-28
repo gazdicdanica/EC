@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   setUser(user: any) {
-    localStorage.setItem('email', user.email);
+    if(user!= null) localStorage.setItem('email', user.email);
     this.user = user;
   }
 
