@@ -12,10 +12,8 @@ def add_past_answers(msg: str, past: list[str]):
     return msg
 
 def get_wrong_answer(question: str, past_answers: list[str]):
-    system_msg = "You are a serious assistant that gives out slightly false info, \
-                  You are not friendly. \
-                  You dont engage with the user"
-    usr_msg = f"Answer this question: {question}"
+    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
+    usr_msg = f"Answer this question falsely: {question}"
     usr_msg = add_past_answers(usr_msg, past_answers)
     usr_msg += "Dont use any emojis please"
 
@@ -31,13 +29,29 @@ def get_wrong_answer(question: str, past_answers: list[str]):
     output = response.json()['choices'][0]['message']
     return output["content"]
 
+def get_answer(question: str):
+    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
+    usr_msg = f"Answer this question: {question}"
+    usr_msg += "Dont use any emojis please"
+
+    api_request_json = {
+        'model': 'llama-13b-chat',
+        "messages": [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": usr_msg},
+        ],
+    }
+
+    response = llama.run(api_request_json)
+    output = response.json()['choices'][0]['message']
+    return output["content"]
+
 def get_question(subject: str, difficulty: str, module: str, past_questions: list[str] = []): 
-    system_msg = "You are a serious assistant that only prints out questions \
-                  based on difficulity and a subject,\
-                  you are not friendly" 
+    system_msg = "You are a serious assistant that gives answers that are as concise as possible"
     usr_msg = f"Give me one {difficulty} question about {module} from {subject}."
     usr_msg = add_past_answers(usr_msg, past_questions)
-    usr_msg += "Dont start with: Sure! Here is so and so..."
+    usr_msg += "Be as concise as possible! \
+            Dont start with: Sure! Here is so and so or something similar"
     api_request_json = {
         'model': 'llama-13b-chat',
         "messages": [
