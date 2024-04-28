@@ -30,6 +30,7 @@ export class LoginComponent {
       this.authService.login(form.email!, form.password!).subscribe({
         next: (response) => {
           this.authService.setUser(response);
+          console.log('User logged in', response);
           this.router.navigate(['/home']);
           this.isLoading = false;
           

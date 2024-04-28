@@ -12,8 +12,11 @@ import { MainComponent } from './main/main.component';
 import { AppbarComponent } from './appbar/appbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
+import { AskQuestionComponent } from './ask-question/ask-question.component';
+import { GenerateQuestionsComponent } from './generate-questions/generate-questions.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { SummaryComponent } from './summary/summary.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,11 @@ import { SummaryComponent } from './summary/summary.component';
     MainComponent,
     AppbarComponent,
     CourseComponent,
+    AskQuestionComponent,
+    GenerateQuestionsComponent,
     QuizComponent,
-    SummaryComponent
+    SummaryComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

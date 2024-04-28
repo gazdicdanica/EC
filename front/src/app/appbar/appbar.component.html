@@ -8,8 +8,14 @@
     </span>
    
 
-    <span class="logout">
-        <button mat-icon-button (click)="logout()">
+    <span class="logout" >
+        <button mat-icon-button (click)="generateQuestions()">
+            <mat-icon >quiz</mat-icon>
+        </button>
+        <button mat-icon-button (click)="askQuestion()">
+            <mat-icon >contact_support</mat-icon>
+        </button>
+        <button *ngIf="isLoggedIn()" mat-icon-button (click)="logout()">
             <mat-icon>logout</mat-icon>
         </button>
     </span>

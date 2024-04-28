@@ -1,0 +1,24 @@
+<div class="container" #containerDiv>
+  <mat-form-field id="input-cont" appearance="outline" style="width: 50%; margin-top: 20px;" class="example-full-width">
+    <input  matInput placeholder="Enter a topic" [formControl]="textControl">
+    <mat-error *ngIf="textControl.invalid">Topic is required</mat-error>
+  </mat-form-field>
+  <button id="big-submit" style="width: 50%;" mat-raised-button color="primary" (click)="submitText()">Submit</button>
+
+  <div *ngFor="let question of questions; let i = index" style="display: flex; flex-direction: column; align-items: center;" >
+    <h5>{{question}}</h5>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+      <mat-form-field appearance="outline" style="width: 500px;">
+        <input matInput #answerInput placeholder="Enter an answer">
+      </mat-form-field>
+      <div style="width: 20px;"></div>
+      <button mat-raised-button color="primary" (click)="handleClick(i, answerInput.value)">Check</button>
+    </div>
+  </div>
+  
+  
+</div>
+
+<div class="loading" *ngIf="isLoading">
+  <mat-spinner color="accent"></mat-spinner>
+</div>

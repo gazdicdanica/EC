@@ -110,6 +110,7 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
 
 
+    # Funkcija kojoj posaljes temu i N(Broj pitanja koji treba da ti da na tu temu) kao i tezinu pitanja. Vraca samo pitanja!
     @app.route('/ask_me_about_topic', methods=['POST'])
     def ask_me_about_topic():
         if request.is_json:
@@ -126,6 +127,7 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
         
 
+    # Funkcija kojoj posaljes pitanje i odgovor i preciznost(koliko odgovor treba da bude dobar, postoji defaultna vrednost) i vraca ti da li je odgovor tacan ili ne kao i objasnjenje 
     @app.route('/check_answer_for_topic', methods=['POST'])
     def check_answer_for_topic():
         if request.is_json:
@@ -157,6 +159,7 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
         
 
+    # Funkcija kojoj posaljes pitanje i dobijas odgovor na to pitanje
     @app.route('/get_answer_for_my_question', methods=['POST'])
     def answer_my_question():
         if request.is_json:
@@ -176,7 +179,7 @@ def create_app():
 
                 return jsonify({
                     "correct_json": flag,
-                    "questions": fromLlama, 
+                    "answer": fromLlama, 
                     }), 200
             
 
@@ -186,6 +189,7 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
 
 
+    # Funkcija kojoj posaljes pitanja i odgovore na pitanja i dobijes rezultate testa
     @app.route('/analyze_test', methods=['POST'])
     def analyze_test_results():
         if request.is_json:
@@ -193,7 +197,8 @@ def create_app():
                 user_data = request.json
                 question_and_answers = user_data.get("questionAnswerDatamap")
                 fromLlama = None
-
+                print("question_and_answers")
+                print(question_and_answers)
                 fromLlama = lama_requests.analyze_test(question_and_answers)
 
                 flag, fromLlama = get_content(fromLlama)
@@ -210,6 +215,7 @@ def create_app():
             return jsonify({"error": "Request body must be JSON"}), 400
 
 
+    # Posaljes listu rezultata testova koje dobijes kada pozivas analyze_test_results i vrati ti veliki opis
     @app.route('/analyze_user_performance', methods=['GET'])
     def analyze_user_performace():
         try:
@@ -227,6 +233,7 @@ def create_app():
                 }), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 400
+
 
 
     return app    

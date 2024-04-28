@@ -201,7 +201,7 @@ def answer_question(question, generalization_coefficient=0.5):
 def analyze_test(question_and_answer):
     api_request_json = {
         "messages": [
-            {"role": "user", "content": f"Please analyze the answer for every question:answer pair and provide me with general feedback for my answers and my thinking. Make sure that answers for every question is correct and correct me if not, also rate me on scale 0-100. Here is the data: '{question_and_answer}' "},
+            {"role": "user", "content": f"Analyze the answer for every object and provide me with general feedback for my answers up to 100 characters. Make sure that answers for every question is correct, rate me on scale 0-100. Here is the data: '{question_and_answer}' "},
         ],
         "functions": [
             {
@@ -251,6 +251,7 @@ def analyze_performance(reports):
     response = llama.run(api_request_json)
     
     return response.json()
+
 
 
 #response = create_n_questions_with_m_answers_where_first_is_correct("Math", "triginometry",  "european high school", "medium", num_questions=5, num_answers=3)
