@@ -36,7 +36,7 @@ def add_past_answers(msg: str, past: list[str]):
 
 def get_wrong_answer(question: str, past_answers: list[str]):
     system_msg = "You are a serious assistant and you dont use smileys"
-    usr_msg = f"Answer this question but alter it to make it seem correct but is actually false: {question}"
+    usr_msg = f"Answer this question as short as posible but alter it to make it seem correct but is actually false: {question}"
     usr_msg = add_past_answers(usr_msg, past_answers)
     usr_msg += "Dont use any emojis please"
 
@@ -54,7 +54,7 @@ def get_wrong_answer(question: str, past_answers: list[str]):
 
 def get_answer(question: str):
     system_msg = "You are a serious assistant that gives answers that are as concise as possible"
-    usr_msg = f"Answer this question: {question}"
+    usr_msg = f"Answer this question as short as possible: {question}"
     usr_msg += "Dont use any emojis please"
 
     api_request_json = {
@@ -71,7 +71,8 @@ def get_answer(question: str):
 
 def get_question(subject: str, difficulty: str, module: str, past_questions: list[str] = []): 
     system_msg = "You are a serious assistant that gives answers that are as concise as possible"
-    usr_msg = f"Give me one {difficulty} question about {module} from {subject}."
+    usr_msg = f"Give me one {difficulty} question about {module} from {subject}.\
+            Make it as short as possible"
     usr_msg = add_past_answers(usr_msg, past_questions)
     usr_msg += "Be as concise as possible! \
             Dont start with: Sure! Here is so and so or something similar"
