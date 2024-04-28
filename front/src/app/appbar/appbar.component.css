@@ -7,3 +7,7 @@
     display: flex;
     align-items: center;
 }
+
+.logo:hover{
+    cursor: pointer;
+}

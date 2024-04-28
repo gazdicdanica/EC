@@ -16,14 +16,12 @@ export class SignupComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
-    type: new FormControl('', [Validators.required])
   }, this.matchValidator('password', 'confirmPassword'));
 
   signUpFormIndividual = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
-    type: new FormControl('', [Validators.required])
   }, this.matchValidator('password', 'confirmPassword'));
 
 

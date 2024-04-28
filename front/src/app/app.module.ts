@@ -12,6 +12,7 @@ import { MainComponent } from './main/main.component';
 import { AppbarComponent } from './appbar/appbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CourseComponent } from './course/course.component';
     SignupComponent,
     MainComponent,
     AppbarComponent,
-    CourseComponent
+    CourseComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,
