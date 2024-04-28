@@ -88,13 +88,13 @@ def create_app():
                 subject = data.get("subject")
                 difficulty = data.get("difficulty")
                 module = data.get("module")
-                user = data.get("email")
 
                 questions_collection = db["questions"]
                 subject_doc = questions_collection.find_one({"subject": subject})
                 print(subject_doc)
                 if subject_doc:
                     llama_question = lama_requests.get_question(subject, difficulty, module, subject_doc["questions"])
+                    questions_collection.update_one({"subject":subject},{"$addToSet": {"questions":llama_question}})
                 else:
                     llama_question = lama_requests.get_question(subject, difficulty, module, [])
                     questions_collection.insert_one({"subject":subject, "questions":[llama_question]})
