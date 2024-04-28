@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { LamaServiceService } from '../services/lama-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-generate-questions',
@@ -15,7 +16,7 @@ export class GenerateQuestionsComponent {
   isLoading: boolean = false;
   @ViewChild('containerDiv') containerDiv: ElementRef = new ElementRef(null);
 
-  constructor(private lamaService: LamaServiceService, private renderer: Renderer2) {}
+  constructor(private lamaService: LamaServiceService, private renderer: Renderer2, private router: Router) {}
 
   ngOnInit() {
     this.counter = 0;
@@ -82,6 +83,7 @@ export class GenerateQuestionsComponent {
         console.log('Response:', response);
         this.isLoading = false;
         alert(response.test_results)
+        this.router.navigate(['/askNQuestion']);
       },
         error: (error) => {
           alert(error.message)

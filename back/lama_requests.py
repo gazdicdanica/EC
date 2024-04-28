@@ -1,7 +1,7 @@
 from llamaapi import LlamaAPI
 
 
-llama = LlamaAPI("LL-plMcYMhKmGGflEwSwBS0NQYLL2c951Y5v0MQ7XuWlmKYH8D22LWbR8loamI1VBhK")
+llama = LlamaAPI("LL-OMRR5S1cTUrbM3Bv1bq5Y3CVx9PGpwWPLoFtAVCJVWFPqwAT9eqCqVQuE2pB0ra6")
 
 def add_past_answers(msg: str, past: list[str]):
     if len(past) != 0:
