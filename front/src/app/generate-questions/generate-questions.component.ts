@@ -35,7 +35,7 @@ export class GenerateQuestionsComponent {
       return;
     }
     this.isLoading = true;
-    this.lamaService.generateQuestions(this.textInput, "medium", 5).subscribe({
+    this.lamaService.generateQuestions(this.textControl.value!, "medium", 5).subscribe({
       next: (response) => {
         console.log('Response:', response);
         this.questions = response.questions;
